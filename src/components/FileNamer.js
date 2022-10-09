@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function FileNamer() {
   const [name, setName] = useState(``);
   const [alert, setAlert] = useState(false);
+
+  useEffect(() => {
+    const handleWindowClick = () => setAlert(false);
+    if (alert) {
+      window.addEventListener("click", handleWindowClick);
+    } else {
+      window.removeEventListener("click", handleWindowClick);
+    }
+    return () => window.removeEventListener("click", handleWindowClick);
+  }, [alert, setAlert]);
 
   function validate(event) {
     if (/\*/.test(name)) {
@@ -34,11 +44,7 @@ export default function FileNamer() {
         </label>
 
         <div className="information-wrapper">
-          <button
-            className="information"
-            onClick={handleClick}
-            onBlur={() => setAlert(false)}
-          >
+          <button className="information" onClick={handleClick}>
             more information
           </button>
           {alert && (

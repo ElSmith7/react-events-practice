@@ -13,9 +13,11 @@
 }
 
 .popup {
+  position: absolute;
   background: white;
   border: 1px darkgray solid;
   padding: 10px;
+  top: -70px;
   left: 0;
 }
 
